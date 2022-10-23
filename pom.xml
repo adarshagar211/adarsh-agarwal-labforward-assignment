@@ -9,11 +9,11 @@
 		<version>2.7.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.labforward.data</groupId>
-	<artifactId>data-service</artifactId>
+	<groupId>com.labforward</groupId>
+	<artifactId>labforward-webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>data-services</name>
-	<description>Data Service API</description>
+	<name>labforward-webapp</name>
+	<description>Labforward WebApplication</description>
 	<properties>
 		<java.version>11</java.version>
 		<commons-text-version>1.10.0</commons-text-version>

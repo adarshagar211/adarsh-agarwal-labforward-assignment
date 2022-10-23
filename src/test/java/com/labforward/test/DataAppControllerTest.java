@@ -32,16 +32,16 @@ public class DataAppControllerTest {
 
 	@Test
 	public void testGetFrequencyEndpoint() throws Exception {
-		when(dataService.getWordFrequency(Mockito.anyString())).thenReturn(2l);
-		this.mockMvc.perform(get("/api/data/frequency/word")).andDo(print()).andExpect(status().isOk())
+		when(dataService.getWordFrequency(Mockito.anyString(), Mockito.anyInt())).thenReturn(2l);
+		this.mockMvc.perform(get("/api/data/frequency/word?labEntryIndex=1")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string("2"));
 	}
 
 	@Test
 	public void testGetSimilarWordsEndpoint() throws Exception {
 		List<String> listSimilarWords = List.of("test");
-		when(dataService.getSimilarWords(Mockito.anyString())).thenReturn(listSimilarWords);
-		this.mockMvc.perform(get("/api/data/similar/word")).andDo(print()).andExpect(status().isOk())
+		when(dataService.getSimilarWords(Mockito.anyString(), Mockito.anyInt())).thenReturn(listSimilarWords);
+		this.mockMvc.perform(get("/api/data/similar/word?labEntryIndex=1")).andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$[0]").value("test"));
 	}
 

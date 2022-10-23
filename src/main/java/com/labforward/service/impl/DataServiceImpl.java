@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import com.labforward.scheduler.ScheduledTasks;
 import com.labforward.service.DataService;
 
 @Service
@@ -16,21 +17,21 @@ public class DataServiceImpl implements DataService {
     private ScheduledTasks scheduledTasks ; 
     
 	@Override
-	public long getWordFrequency(String pattern) {
-		if (scheduledTasks.getWordList().isEmpty()) 
+	public long getWordFrequency(String pattern , int labEntryIndex) {
+		if (!scheduledTasks.getWordMap().containsKey(labEntryIndex) && scheduledTasks.getWordMap().get(labEntryIndex).isEmpty()) 
 			throw new NotFoundException("Word list is empty , please add notes to labnotes file " );
-		long frequency = scheduledTasks.getWordList().stream()
-				                                     .filter(x -> x.equals(pattern)).count();
+		long frequency = scheduledTasks.getWordMap().get(labEntryIndex).stream()
+				                                                       .filter(x -> x.equals(pattern)).count();
 		return frequency;
 	}
 
 	@Override
-	public List<String> getSimilarWords(String pattern) {
-		if (scheduledTasks.getWordList().isEmpty()) 
+	public List<String> getSimilarWords(String pattern , int labEntryIndex) {
+		if (!scheduledTasks.getWordMap().containsKey(labEntryIndex) && scheduledTasks.getWordMap().get(labEntryIndex).isEmpty()) 
 			throw new NotFoundException("Word list is empty , please add notes to labnotes file " );
-		List<String> similarWords = scheduledTasks.getWordList().stream()
-				                                                .filter(x -> !x.equals(pattern) && isSimilarText(x, pattern))
-				                                                .collect(Collectors.toList());
+		List<String> similarWords = scheduledTasks.getWordMap().get(labEntryIndex).stream()
+				                                                                  .filter(x -> !x.equals(pattern) && isSimilarText(x, pattern))
+				                                                                  .collect(Collectors.toList());
 		return similarWords;
 	}
 

@@ -2,14 +2,14 @@
 
 Labforward Data Service - Application production ready Springboot Web Application built using Spring 5 / Java 11 .
 
-LabForward Web Application UI page which contains "Search Bar" with three buttons "Frequency" ,"Matching" , "ClearAll"  
+LabForward Web Application UI page which contains "Search" ,"Index" textboxs with three buttons "Frequency" ,"Matching" , "ClearAll"  
             "Frequency" button -> Calls API to find frequency of word pattern in labnotes 
             "Matching" button  -> Calls API to find similar words in labnotes matching with word pattern  
             "ClearAll" button  -> Clears all result
             
 After running the application you can check the UI on below link: 
 ```shell
- http://localhost/index.html 
+ http://localhost
 ```           
           
 [![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
@@ -39,8 +39,8 @@ It has no external dependencies it uses internal file "labnotes.txt" to find the
 Scheduler is used for optimizing API's response . 
 UI is built to give this application look and feel , you can get below API's response by entering "word"/"Word" in search bar & clicking button
 
-Getting Frequency of word in labnotes ->  /api/data/frequency/{pattern} 
-Getting similar words in labnotes     ->  /api/data/similar/{pattern} 
+Getting Frequency of word in labnotes ->  /api/data/frequency/{pattern}?labEntryIndex={value} 
+Getting similar words in labnotes     ->  /api/data/similar/{pattern}?labEntryIndex={value}  
  
 Added some Junits around controller for API and validation testing
 API thows Exception Error when -> search word is not alphanumeric - Response status is 422 Unprocessable Entity.
@@ -76,7 +76,7 @@ mvn spring-boot:run
 Once Application is up and running on jvm , check the API documentation on below swagger url : 
 
 ```shell
-UI url       : http://localhost/index.html
+UI url       : http://localhost
 
 Swagger URL  :  http://localhost/docs
 Swagger URL  :  http://localhost/swagger-ui/index.html

@@ -15,9 +15,11 @@
 	var search_text = {
 		getWordFrequency : function() {
 			var pattern = $("#searchbar").val().trim();
+			var index = $("#entryindex").val().trim() 
+			index = (index && index !== '') ? "?labEntryIndex="+index : '';
 			search_text.clearAll();
 			$.ajax({
-				url : "http://localhost/api/data/frequency/"+ pattern,
+				url : "/api/data/frequency/"+ pattern + index,
 				success : function(result) {
 					if(result) {
 					  $("#resultLabel").text("Frequency of "+ pattern + " is : " +result);
@@ -33,9 +35,11 @@
 		},
 		getSimilarWords : function() {
 			var pattern = $("#searchbar").val().trim();
+			var index = $("#entryindex").val().trim() 
+			index = (index && index !== '') ? "?labEntryIndex="+index : '';
 			search_text.clearAll();
 			$.ajax({
-				url : "http://localhost/api/data/similar/"+ pattern,
+				url : "/api/data/similar/"+ pattern+index,
 				success : function(result) {				
 					if(result && result.length > 0) {
 					 $("#resultLabel").text("Similar to " + pattern + " : " +result);
@@ -79,7 +83,7 @@
 			<div class="feature">
 				<div class="feature-inner">
 				   <h1>Data Dictionary</h1>
-				   <h3>Search your content here</h3>
+				   <h4>Search content here</h4>
 				</div>
 			</div>
 			<!-- input tag -->
@@ -89,15 +93,19 @@
 						<div class="article">	
      						<br> <br>
 		                    <div class="form-group">
+		                    <div class="row">
 		                     <div class="col-xs-6">
 			                   <input id="searchbar" type="text" class="form-control" name="search" placeholder="Search..." autofocus>
-			                   </div>
+			                  </div>
+			                  <div class="col-xs-3">
+			                   <input id="entryindex" type="text" class="form-control" name="labEntryIndex" placeholder="Entry number...">
+			                  </div>
+			                  </div>
+			                  <br>
 			                   <button type="button" class ="btn btn-primary" onclick="search_text.getWordFrequency();">Frequency</button>
 			                   <button type="button" class ="btn btn-primary" onclick="search_text.getSimilarWords();">Matching</button>	                      
 			                   <button type="button" class ="btn btn-warning" onclick="search_text.clearAll();">Clear All</button>
-		                    </div>
-		                    <br>
-		                    <div>
+		                       <br><br>
 			                   <label class="text-primary"  id="resultLabel"></label>
 			                   <label class="text-danger" id="errorLabel"></label>
 		                    </div>
