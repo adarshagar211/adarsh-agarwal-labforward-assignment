@@ -1,13 +1,18 @@
+
 # Labforward Data Service - Web Application
 
 Labforward Data Service - Application production ready Springboot Web Application built using Spring 5 / Java 11 .
 
-LabForward Web Application UI page which contains "Search" ,"Index" textboxs with three buttons "Frequency" ,"Matching" , "ClearAll"  
-            "Frequency" button -> Calls API to find frequency of word pattern in labnotes 
-            "Matching" button  -> Calls API to find similar words in labnotes matching with word pattern  
-            "ClearAll" button  -> Clears all result
+LabForward Web Application contains "Search"  and "Index" textboxs  and three buttons "Frequency" ,"Matching" , "ClearAll"  .
+
+ - "Frequency" button -> Calls API to find frequency of word pattern in
+   lab entry
+ - "Matching" button  -> Calls API to find similar words in lab entry
+   matching with word
+ - "ClearAll" button  -> Clears all result
+
             
-After running the application you can check the UI on below link: 
+After running the application you can check below link: 
 ```shell
  http://localhost
 ```           
@@ -21,31 +26,35 @@ Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
 For building and running the application you need:
 
-Java JDK 11 ,
-Spring 5, 
-UI (HTML ,JQuery, AJAX, BootStrap), 
-Maven 3+ or higher, 
-Git 
+ - Java JDK 11 
+ - Spring 5
+ - UI (HTML ,JQuery, AJAX, BootStrap)
+ - Maven 3+ or higher
+ - Git
 
 ## About the project
  
- Its created as a springboot application which makes its production ready and runs on embedded Tomcat server. 
- This project can simply be imported as maven project an run on Eclipse or IntelliJ or using maven using below command
+ Its created as a SpringBoot production ready application which runs on embedded Tomcat server. This project can simply be imported as maven project and can run on Eclipse or IntelliJ or run directly using below command. 
  
  ```shell
 mvn spring-boot:run
 ```
-It has no external dependencies it uses internal file "labnotes.txt" to find the word matches and frequency as mentioned in assignment. 
-Scheduler is used for optimizing API's response . 
-UI is built to give this application look and feel , you can get below API's response by entering "word"/"Word" in search bar & clicking button
-
-Getting Frequency of word in labnotes ->  /api/data/frequency/{pattern}?labEntryIndex={value} 
-Getting similar words in labnotes     ->  /api/data/similar/{pattern}?labEntryIndex={value}  
+It has no external dependencies and reads internal file  "labnotes.txt" to find the lab entries. Scheduler is used for optimizing API's response . UI gives good look and feel to application and useful for testing. 
+ 
+ Two APi's built : 
+ - Getting Frequency of word in labnotes ->  /api/data/frequency/{pattern}?labEntryIndex={value} 
+ - Getting similar words in labnotes     ->  /api/data/similar/{pattern}?labEntryIndex={value}  
  
 Added some Junits around controller for API and validation testing
-API thows Exception Error when -> search word is not alphanumeric - Response status is 422 Unprocessable Entity.
-                          when -> labnotes is empty  - Response status is 500 Internal Server Error 
-                          when -> In case of unexpected error on server - Response status is 500 Internal Server Error 
+API thows Exception Error  : 
+ -  search word is not alphanumeric - Response status is 422
+   Unprocessable Entity. 
+  - labnotes is empty  - Response status is
+   500 Internal Server Error  
+  - Incase of unexpected error on
+   server - Response status is 500 Internal Server Error
+
+ 
 
 Please check swagger URL for testing and more documentation on API's
 
@@ -82,10 +91,9 @@ Swagger URL  :  http://localhost/docs
 Swagger URL  :  http://localhost/swagger-ui/index.html
 ```
 
-## Scope for Scalable & Responsive
+## Scope for Improvements
 
-If this application would be attracting lot of traffic in future. 
-I would have included spring security , decoupled different component , adding more test cases , made application more dynamic e.g. ability to upload documents through UI and adding docker   . 
+We could add spring security like token, OAuth, decouple different component to give better architecture,  dockerize the whole application, add more test cases ,add caching and feature wise made application more dynamic e.g. ability to add/update lab entry through UI . 
   
 ### Contact
 
