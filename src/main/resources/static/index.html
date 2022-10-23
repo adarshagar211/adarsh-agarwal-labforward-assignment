@@ -1,38 +1,117 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<!-- linking the stylesheet(CSS) -->
+<title>LabForward Data Search WebApp</title>
+<meta name="description" >
+<meta name="author" content="Adarsh Agarwal">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./style.css">
-<!-- linking javascript -->
-<script src="./animals.js"></script>
+
+<script type="text/javascript">
+	var search_text = {
+		getWordFrequency : function() {
+			var pattern = $("#searchbar").val().trim();
+			search_text.clearAll();
+			$.ajax({
+				url : "http://localhost/api/data/frequency/"+ pattern,
+				success : function(result) {
+					if(result) {
+					  $("#resultLabel").text("Frequency of "+ pattern + " is : " +result);
+					}else{
+					  $("#errorLabel").text("Sorry match not found in dictionary");	
+					}
+				},
+				error:  function ( jqXhr, textStatus, errorMessage ) {
+					console.log(errorMessage);
+					$("#errorLabel").text("Try with other inputs , if problem persist please contact adminstrator");
+				}
+			});
+		},
+		getSimilarWords : function() {
+			var pattern = $("#searchbar").val().trim();
+			search_text.clearAll();
+			$.ajax({
+				url : "http://localhost/api/data/similar/"+ pattern,
+				success : function(result) {				
+					if(result && result.length > 0) {
+					 $("#resultLabel").text("Similar to " + pattern + " : " +result);
+					}else{
+					 $("#errorLabel").text("Sorry match not found in dictionary");	
+					}
+				},
+				error:  function ( jqXhr, textStatus, errorMessage ) {
+					console.log(errorMessage);
+					$("#errorLabel").text("Try with other inputs , if problem persist please contact adminstrator");
+				}
+			});
+		},
+		clearAll : function() {
+			 $("#resultLabel").text("");
+			 $("#errorLabel").text("");
+			},
+	};
+</script>
 </head>
-
-<body>
-
-	<!-- input tag -->
-	<input id="searchbar" onkeyup="search_animal()" type="text"
-		name="search" placeholder="Search animals..">
-
-	<!-- ordered list -->
-	<ol id='list'>
-		<li class="animals">Cat</li>
-		<li class="animals">Dog</li>
-		<li class="animals">Elephant</li>
-		<li class="animals">Fish</li>
-		<li class="animals">Gorilla</li>
-		<li class="animals">Monkey</li>
-		<li class="animals">Turtle</li>
-		<li class="animals">Whale</li>
-		<li class="animals">Aligator</li>
-		<li class="animals">Donkey</li>
-		<li class="animals">Horse</li>
-	</ol>
-
-
-</body>
-
+  <body>
+      <div id="page">
+			<header id="header">
+				<div id="header-inner">
+					<div id="logo">
+						<h1>
+							<a href="#">Lab<span>Forward</span></a>
+						</h1>
+					</div>
+					<div id="top-nav">
+						<ul>
+							<li><a href="#">About</a></li>
+							<li><a href="#">Contact</a></li>
+							<li><a href="#">FAQ</a></li>
+							<li><a href="#">Help</a></li>
+						</ul>
+					</div>
+					<div class="clr"></div>
+				</div>
+			</header>
+			<div class="feature">
+				<div class="feature-inner">
+				   <h1>Data Dictionary</h1>
+				   <h3>Search your content here</h3>
+				</div>
+			</div>
+			<!-- input tag -->
+			<div id="content">
+				<div id="content-inner">		
+					<main id="contentbar">
+						<div class="article">	
+     						<br> <br>
+		                    <div class="form-group">
+		                     <div class="col-xs-6">
+			                   <input id="searchbar" type="text" class="form-control" name="search" placeholder="Search..." autofocus>
+			                   </div>
+			                   <button type="button" class ="btn btn-primary" onclick="search_text.getWordFrequency();">Frequency</button>
+			                   <button type="button" class ="btn btn-primary" onclick="search_text.getSimilarWords();">Matching</button>	                      
+			                   <button type="button" class ="btn btn-warning" onclick="search_text.clearAll();">Clear All</button>
+		                    </div>
+		                    <br>
+		                    <div>
+			                   <label class="text-primary"  id="resultLabel"></label>
+			                   <label class="text-danger" id="errorLabel"></label>
+		                    </div>
+						</div>
+					</main>					
+					<div class="clr"></div>
+				</div>
+			</div>	   
+		<footer id="footer">
+			<div id="footer-inner">
+				<p>&copy; Copyright <a href="#">LabForward</a> &#124; <a href="#">Terms	of Use</a> &#124; <a href="#">Privacy Policy</a></p>
+				<div class="clr"></div>
+			</div>
+		</footer>
+	</div>
+ </body>
 </html>

@@ -29,7 +29,7 @@ public class DataController {
 
 	@GetMapping("/frequency/{pattern}")
 	public long getWordFrequency(@PathVariable @Size (min = 1 , message="Please enter any input") 
-			                                   @Pattern(regexp = "^\\w+" , message = "Please enter valid input")  
+			                                   @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9\\s]*$" , message = "Please enter valid input")  
 	                                           String pattern) {
 		log.info("Getting frequency of words in dictionary ");
 		return dataService.getWordFrequency(pattern);
@@ -37,7 +37,7 @@ public class DataController {
 
 	@GetMapping("/similar/{pattern}")
 	public List<String> getSimilarWords(@PathVariable @Size (min = 1 , message="Please enter any input") 
-                                                      @Pattern(regexp = "^\\w+" , message = "Please enter valid input")  
+                                                      @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9\\s]*$" , message = "Please enter valid input")  
 	                                                  String pattern) {
 		log.info("Getting similar words from dictory ");
 		return dataService.getSimilarWords(pattern);
